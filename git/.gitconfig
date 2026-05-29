@@ -1,0 +1,13 @@
+[user]
+    name = laleeroy
+    email = laleeroy@users.noreply.github.com
+[core]
+    editor = vim
+
+[merge]
+    tool = vim_mergetool
+    conflictstyle = diff3
+
+[mergetool "vim_mergetool"]
+    cmd = vim -f -c "MergetoolStart" "$MERGED" "$BASE" "$LOCAL"
+    trustExitCode = true
