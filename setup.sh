@@ -20,9 +20,14 @@ detect_pm() {
 
 detect_pm
 
+# If running as root via sudo, re-exec as the original user
+if [ "$EUID" -eq 0 ] && [ -n "$SUDO_USER" ]; then
+  exec sudo -u "$SUDO_USER" HOME="$(getent passwd "$SUDO_USER" | cut -d: -f6)" bash "$0"
+fi
+
 echo "==> Installing dependencies..."
-$UPDATE
-$INSTALL zsh git curl wget vim tmux fzf stow which
+sudo $UPDATE
+sudo $INSTALL zsh git curl wget vim tmux fzf stow which
 
 echo "==> Installing Oh My Zsh..."
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
